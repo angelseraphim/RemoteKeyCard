@@ -44,7 +44,7 @@ namespace RemoteKeyCard
             if (ev.Player == null || ev.Door.IsLocked)
                 return;
             
-            if (CheckPermission(ev.Player, ev.Door.KeycardPermissions))
+            if (CheckPermission(ev.Player, (KeycardPermissions)ev.Door.RequiredPermissions.RequiredPermissions))
                 ev.IsAllowed = true;
         }
         private void OnOpeningGenerator(OpeningGeneratorEventArgs ev)
@@ -52,7 +52,7 @@ namespace RemoteKeyCard
             if (ev.Player == null)
                 return;
 
-            if (CheckPermission(ev.Player, ev.Generator.KeycardPermissions))
+            if (CheckPermission(ev.Player, (KeycardPermissions)ev.Generator.Base._requiredPermission))
                 ev.IsAllowed = true;
         }
         private void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev)
