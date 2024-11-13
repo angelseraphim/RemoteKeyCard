@@ -41,7 +41,7 @@ namespace RemoteKeyCard
         }
         private void OnInteractingDoor(InteractingDoorEventArgs ev)
         {
-            if (ev.Player == null || ev.Door.IsLocked)
+            if (ev.Player == null || ev.Door.IsLocked || !ev.IsAllowed)
                 return;
             
             if (CheckPermission(ev.Player, (KeycardPermissions)ev.Door.RequiredPermissions.RequiredPermissions))
@@ -49,7 +49,7 @@ namespace RemoteKeyCard
         }
         private void OnOpeningGenerator(OpeningGeneratorEventArgs ev)
         {
-            if (ev.Player == null)
+            if (ev.Player == null || !ev.IsAllowed)
                 return;
 
             if (CheckPermission(ev.Player, (KeycardPermissions)ev.Generator.Base._requiredPermission))
@@ -57,7 +57,7 @@ namespace RemoteKeyCard
         }
         private void OnActivatingWarheadPanel(ActivatingWarheadPanelEventArgs ev)
         {
-            if (ev.Player == null)
+            if (ev.Player == null || !ev.IsAllowed)
                 return;
 
             if (CheckPermission(ev.Player, KeycardPermissions.AlphaWarhead))
@@ -65,7 +65,7 @@ namespace RemoteKeyCard
         }
         private void OnInteractingLocker(InteractingLockerEventArgs ev)
         {
-            if (ev.Player == null)
+            if (ev.Player == null || !ev.IsAllowed)
                 return;
 
             if (CheckPermission(ev.Player, (KeycardPermissions)ev.Chamber.RequiredPermissions))
