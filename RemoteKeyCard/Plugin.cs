@@ -1,7 +1,7 @@
-﻿using Exiled.API.Features;
+﻿using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using RemoteKeyCard.EventHandlers;
-using KeycardPermission = Interactables.Interobjects.DoorUtils.KeycardPermissions;
 
 namespace RemoteKeyCard
 {
@@ -29,13 +29,13 @@ namespace RemoteKeyCard
             base.OnDisabled();
         }
 
-        internal static bool CheckPermission(Player player, KeycardPermission keycardPermissions)
+        internal static bool CheckPermission(Player player, KeycardPermissions keycardPermissions)
         {
             foreach (Item item in player.Items)
             {
                 if (item is Keycard keycard)
                 {
-                    if ((keycard.Base.Permissions & keycardPermissions) != 0)
+                    if (keycard.Permissions.HasFlag(keycardPermissions))
                         return true;
                 }
             }

@@ -1,7 +1,5 @@
-﻿using Exiled.Events.EventArgs.Player;
-using Interactables.Interobjects.DoorUtils;
-using MapGeneration.Distributors;
-using System.Reflection;
+﻿using Exiled.API.Enums;
+using Exiled.Events.EventArgs.Player;
 
 namespace RemoteKeyCard.EventHandlers
 {
@@ -28,7 +26,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.Door.IsLocked || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, ev.Door.RequiredPermissions.RequiredPermissions))
+            if (Plugin.CheckPermission(ev.Player, ev.Door.KeycardPermissions))
                 ev.IsAllowed = true;
         }
 
@@ -36,11 +34,8 @@ namespace RemoteKeyCard.EventHandlers
         {
             if (ev.Player == null || ev.IsAllowed)
                 return;
-            
-            var requiredPermissionField = typeof(Scp079Generator).GetField(nameof(Scp079Generator._requiredPermission), BindingFlags.NonPublic | BindingFlags.Instance);
-            var requiredPermission = (KeycardPermissions)requiredPermissionField.GetValue(ev.Generator.Base);
 
-            if (Plugin.CheckPermission(ev.Player, requiredPermission))
+            if (Plugin.CheckPermission(ev.Player, ev.Generator.KeycardPermissions))
                 ev.IsAllowed = true;
         }
 
@@ -58,7 +53,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, ev.InteractingChamber.Base.RequiredPermissions))
+            if (Plugin.CheckPermission(ev.Player, ev.InteractingChamber.RequiredPermissions))
                 ev.IsAllowed = true;
         }
     }
