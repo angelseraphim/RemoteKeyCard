@@ -26,7 +26,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.Door.IsLocked || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, ev.Door.KeycardPermissions))
+            if (Plugin.CheckByteFlag(ev.Player, ev.Door.KeycardPermissions))
                 ev.IsAllowed = true;
         }
 
@@ -35,7 +35,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, ev.Generator.KeycardPermissions))
+            if (Plugin.CheckByteFlag(ev.Player, ev.Generator.KeycardPermissions))
                 ev.IsAllowed = true;
         }
 
@@ -44,7 +44,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, KeycardPermissions.AlphaWarhead))
+            if (Plugin.CheckByteFlag(ev.Player, KeycardPermissions.AlphaWarhead))
                 ev.IsAllowed = true;
         }
 
@@ -53,7 +53,7 @@ namespace RemoteKeyCard.EventHandlers
             if (ev.Player == null || ev.IsAllowed)
                 return;
 
-            if (Plugin.CheckPermission(ev.Player, ev.InteractingChamber.RequiredPermissions))
+            if (Plugin.CheckHasFlag(ev.Player, ev.InteractingChamber.RequiredPermissions))
                 ev.IsAllowed = true;
         }
     }

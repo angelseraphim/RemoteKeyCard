@@ -29,13 +29,27 @@ namespace RemoteKeyCard
             base.OnDisabled();
         }
 
-        internal static bool CheckPermission(Player player, KeycardPermissions keycardPermissions)
+        internal static bool CheckHasFlag(Player player, KeycardPermissions keycardPermissions)
         {
             foreach (Item item in player.Items)
             {
                 if (item is Keycard keycard)
                 {
                     if (keycard.Permissions.HasFlag(keycardPermissions))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal static bool CheckByteFlag(Player player, KeycardPermissions keycardPermissions)
+        {
+            foreach (Item item in player.Items)
+            {
+                if (item is Keycard keycard)
+                {
+                    if ((keycard.Permissions & keycardPermissions) != 0)
                         return true;
                 }
             }
